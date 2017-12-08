@@ -35,8 +35,11 @@ app.use(
         origin: CLIENT_ORIGIN
     })
 );
-
-
+//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+// make this shoot the template for 404 to prevent 200 status code
+app.get('/404',(req, res) => {
+    res.status(404).send('not found');
+})
 
 
 function runServer(port = PORT) {
