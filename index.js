@@ -2,8 +2,8 @@
 const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
-
-const { PORT, CLIENT_ORIGIN } = require('./config');
+const axios= require('axios');
+const { PORT, CLIENT_ORIGIN, KEY } = require('./config');
 const { dbConnect } = require('./db-mongoose');
 
 const mongoose = require('mongoose');
@@ -14,6 +14,11 @@ const { router: usersRouter } = require('./users');
 passport.use(basicStrategy);
 passport.use(jwtStrategy);
 const app = express();
+
+let headers = {
+    'Accept': 'application/json',
+    'user-key': KEY
+};
 // endpoints
 app.use('/api/users/', usersRouter);
 app.use('/api/auth/', authRouter);
@@ -23,7 +28,17 @@ app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
 });
+// ###################################################### finish this later having issues making back end api calls
+// app.get('/searchresults', (req, res) => {
+//     let url = 'https://developers.zomato.com/api/v2.1/search?q=orlando';
+//     axios.get(url, headers)
+//     .then(response => {
+//         return console.log(response.json());
+//     }).catch(err)
 
+// }
+
+//);
 app.use(
     morgan(process.env.NODE_ENV === 'production' ? 'common' : 'dev', {
         skip: (req, res) => process.env.NODE_ENV === 'test'

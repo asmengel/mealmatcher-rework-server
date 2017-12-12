@@ -9,4 +9,5 @@ module.exports = {
       process.env.TEST_DATABASE_URL ||
       'mongodb://localhost/mealmatcherdb',
       JWT_EXPIRY: process.env.JWT_EXPIRY,
+      KEY: process.env.key
 };
