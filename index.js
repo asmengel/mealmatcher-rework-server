@@ -6,6 +6,7 @@ const axios= require('axios');
 const { PORT, CLIENT_ORIGIN, KEY } = require('./config');
 const { dbConnect } = require('./db-mongoose');
 
+
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 const passport = require('passport');
@@ -14,6 +15,7 @@ const { router: usersRouter } = require('./users');
 passport.use(basicStrategy);
 passport.use(jwtStrategy);
 const app = express();
+
 
 
 // endpoints
@@ -42,7 +44,9 @@ function getCallback(error, response, body) {
     }
 }
 app.get('/searchresults', (req, res) => {
-    request(options, getCallback) ;
+    //let info = this.info;
+    request(options, getCallback);
+    //res.send(info);
     
     
         
