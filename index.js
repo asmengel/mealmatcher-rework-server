@@ -28,29 +28,35 @@ app.use(function (req, res, next) {
     next();
 });
 // ###################################################### finish this later having issues making back end api calls
-let options = {
-    url: 'https://developers.zomato.com/api/v2.1/search?q=Orlando',
-    headers: {
-        'Accept': 'application/json',
-        'user-key': KEY
-    }
-}
-function getCallback(error, response, body) {
-    if (!error && response.statusCode == 200) {
-        let info = JSON.parse(body);
+
+// function getCallback(error, response, body) {
+//     if (!error && response.statusCode == 200) {
+//         let info = JSON.parse(body);
         
-        console.log(info);
-        return info;
+//         console.log(info);
+//         return info;
+//     }
+// }
+app.get('/searchresults', (req, res) =>  {
+    let options = {
+        url: `https://developers.zomato.com/api/v2.1/search?q=${req.query.search}`,
+        headers: {
+            'Accept': 'application/json',
+            'user-key': KEY
+        }
     }
-}
-app.get('/searchresults', (req, res) => {
-    //let info = this.info;
-    request(options, getCallback);
-    //res.send(info);
+    request(options, function(error, response, body) {
+        if (!error && response.statusCode == 200) {
+            let info = JSON.parse(body);
+            res.json(info);
+            
+        }
+    
     
     
         
         })
+    });
     
 
 app.use(
