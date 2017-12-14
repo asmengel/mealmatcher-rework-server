@@ -16,27 +16,18 @@ passport.use(basicStrategy);
 passport.use(jwtStrategy);
 const app = express();
 
-
+app.use(function (req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Request-Headers");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+    next();
+});
 
 // endpoints
 app.use('/api/users/', usersRouter);
 app.use('/api/auth/', authRouter);
-app.use(function (req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Request-Headers");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    next();
-});
-// ###################################################### finish this later having issues making back end api calls
 
-// function getCallback(error, response, body) {
-//     if (!error && response.statusCode == 200) {
-//         let info = JSON.parse(body);
-        
-//         console.log(info);
-//         return info;
-//     }
-// }
+
 app.get('/searchresults', (req, res) =>  {
     let options = {
         url: `https://developers.zomato.com/api/v2.1/search?q=${req.query.search}`,
