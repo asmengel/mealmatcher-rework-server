@@ -24,6 +24,18 @@ return {
 //         user: res.body.user
 //     })
 // })
+// not sure why this does not work $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+router.post('/reservations', jsonParser, (req, res) => {
+    let restaurants = {};
+    let {RestaurantName, HasReservations, NumberOfReservations, UsersInterested} = restaurants;
+    return Restaurant.create({RestaurantName, HasReservations, NumberOfReservations, UsersInterested})
+    .then(restaurants => {
+        return res.status(201).json(restaurants.apiRepr())
+    })
+    .catch(err => {
+          res.status(500).json({ code: 500, message: 'Internal server error' });
+    })
+})
 router.get('/join/:id', jwtAuth, (req, res) => {
     Restaurant.findOneAndUpdate({
         _id: req.params.id
