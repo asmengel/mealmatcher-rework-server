@@ -12,6 +12,7 @@ mongoose.Promise = global.Promise;
 const passport = require('passport');
 const { router: authRouter, basicStrategy, jwtStrategy } = require('./auth');
 const { router: usersRouter } = require('./users');
+const { router: restaurantRouter} = require('./restaurant');
 passport.use(basicStrategy);
 passport.use(jwtStrategy);
 const app = express();
@@ -26,6 +27,7 @@ app.use(function (req, res, next) {
 // endpoints
 app.use('/api/users/', usersRouter);
 app.use('/api/auth/', authRouter);
+app.use('/api/restaurant/', restaurantRouter);
 
 
 app.get('/searchresults', (req, res) =>  {

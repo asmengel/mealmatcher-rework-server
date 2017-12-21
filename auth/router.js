@@ -6,6 +6,7 @@ const router = express.Router();
 const config = require('../config');
 const passport = require('passport');
 const jwt = require('jsonwebtoken');
+const {basicAuth, jwtAuth} = require('./strategies');
 
 const createAuthToken = function (user) {
   return jwt.sign({ user }, config.JWT_SECRET, {
@@ -15,8 +16,7 @@ const createAuthToken = function (user) {
   });
 };
 
-const basicAuth = passport.authenticate('basic', { session: false });
-const jwtAuth = passport.authenticate('jwt', { session: false });
+
 
 router.post('/login', basicAuth, (req, res) => {
   const authToken = createAuthToken(req.user.apiRepr());
