@@ -15,11 +15,16 @@ const RestaurantSchema = mongoose.Schema({
     required: true
   },
   NumberOfReservations: {
-      type: Number
+      type: Number,
+      required: true
       
   },
-  UsersInterested:[{ type: mongoose.Schema.Types.ObjectId, ref: 'User',required: [true,'No user id found']}]
+  UsersInterested:[{ type: mongoose.Schema.Types.ObjectId, ref: 'User'}]// required: [true,'No user id found']
   ,
+  RestaurantId:{
+    type: String,
+    required: true
+}
 
 });
 
@@ -29,6 +34,7 @@ RestaurantSchema.methods.apiRepr = function () {
    HasReservations: this.HasReservations,
    NumberOfReservations: this.NumberOfReservations,
    UsersInterested: this.UsersInterested,
+   RestaurantId: this.RestaurantId,
     id: this._id };
 };
 
