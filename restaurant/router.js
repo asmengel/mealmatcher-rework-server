@@ -43,8 +43,8 @@ router.post('/reservations/:id', jwtAuth, (req, res) => {
             res.status(500).json({ code: 500, message: 'internal server error' });
         });
 });
-
-router.get('/join/:id', jwtAuth, (req, res) => {
+// /join/:id
+router.get('/reservations/:id', jwtAuth, (req, res) => {
     Restaurant.findOneAndUpdate({
         _id: req.params.id
     }, {
