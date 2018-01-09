@@ -146,7 +146,7 @@ router.get('/:id', jwtAuth, (req, res) => {
     });;
 });
 
-// delete user and playlists
+// delete user and all associated data
 router.delete('/:id', jwtAuth, (req, res) => {
   User
     .findByIdAndRemove(req.params.id)

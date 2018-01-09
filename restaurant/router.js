@@ -13,6 +13,7 @@ router.get('/info/:id', (req, res) => {
             if(!restaurant){
                 return res.sendStatus(404)
             }
+            console.log(restaurant.apiRepr())
             return res.status(200).json(restaurant.apiRepr())
 
         })
@@ -49,16 +50,24 @@ router.get('/info/:id', (req, res) => {
 // });
 // /join/:id
 router.post('/reservations/:id', jwtAuth, (req, res) => {
+    console.log(req)
     Restaurant.findOneAndUpdate({
-        RestaurantId: req.params.id
+        RestaurantId: req.params.id,
+        NumberOfReservations: this.NumberOfReservations + 1 || 1, // only displaying 1 currently 
     }, {
             $set: req.body,
-            $addToSet: { UsersInterested: req.user._id }
+            $addToSet: { 
+                UsersInterested: req.user.id,
+                // new stuff
+                HasReservations: true,
+                RestaurantName: req.body.name,
+                
+             }
         }, 
         {
             upsert:true
         }).then(restaurant => {
-            res.json(restaurant)
+            res.status(200).json(restaurant)
         }).catch(err => {
             res.status(500).json(err)
             console.log(err);
