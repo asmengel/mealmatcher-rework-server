@@ -122,13 +122,15 @@ router.post('/', jsonParser, (req, res) => {
       return User.hashPassword(password);
     })
     .then(hash => {
-      return User.create({ username, password: hash, lastName, firstName, email});
+      return User.create({ username, password: hash, lastName, firstName, email, phonenumber});
     })
     .then(user => {
       return res.status(201).json(user.apiRepr());
     })
     .catch(err => {
+      console.log(err);
       if (err.reason === 'ValidationError') {
+        
         return res.status(err.code).json(err);
       }
       res.status(500).json({ code: 500, message: 'Internal server error' });

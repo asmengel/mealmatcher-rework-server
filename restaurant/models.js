@@ -10,10 +10,6 @@ const RestaurantSchema = mongoose.Schema({
     type: String,
     required: true
   },
-  HasReservations: {
-    type: Boolean,
-    required: true
-  },
   NumberOfReservations: {
       type: Number,
       required: true

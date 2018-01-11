@@ -9,6 +9,7 @@ router.use(jsonParser);
 const { basicAuth, jwtAuth } = require('../auth/strategies');
 router.get('/info/:id', (req, res) => {
     return Restaurant.findOne({RestaurantId: req.params.id})
+        .populate("UsersInterested")
         .then(restaurant => {
             if(!restaurant){
                 return res.sendStatus(404)
@@ -50,22 +51,26 @@ router.get('/info/:id', (req, res) => {
 // });
 // /join/:id
 router.post('/reservations/:id', jwtAuth, (req, res) => {
-    console.log(req)
+    console.log(req.body)
     Restaurant.findOneAndUpdate({
         RestaurantId: req.params.id,
-        NumberOfReservations: this.NumberOfReservations + 1 || 1, // only displaying 1 currently 
+         // only displaying 1 currently 
     }, {
-            $set: req.body,
+            $set: req.body 
+            ,
+            $inc: {
+                NumberOfReservations: 1
+            },
             $addToSet: { 
                 UsersInterested: req.user.id,
                 // new stuff
-                HasReservations: true,
-                RestaurantName: req.body.name,
                 
              }
         }, 
         {
-            upsert:true
+            upsert:true,
+            new: true,
+            populate: "UsersInterested"
         }).then(restaurant => {
             res.status(200).json(restaurant)
         }).catch(err => {
