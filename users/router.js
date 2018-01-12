@@ -122,7 +122,7 @@ router.post('/', jsonParser, (req, res) => {
       return User.hashPassword(password);
     })
     .then(hash => {
-      return User.create({ username, password: hash, lastName, firstName, email, phonenumber});
+      return User.create({ username, password: hash, lastName, firstName, email});
     })
     .then(user => {
       return res.status(201).json(user.apiRepr());

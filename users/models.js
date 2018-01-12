@@ -26,9 +26,6 @@ const UserSchema = mongoose.Schema({
   email: {
       type: String,
       required: true
-  },
-  phonenumber: {
-      type: String
   }
 });
 
@@ -38,7 +35,6 @@ UserSchema.methods.apiRepr = function () {
     lastName: this.lastName,
     username: this.username,
     email: this.email,
-    phonenumber: this.phonenumber,
     id: this._id };
 };
 
