@@ -68,8 +68,29 @@ app.use(
 app.get('/404',(req, res) => {
     res.status(404).send('not found');
 })
+// let server;
 
 
+// function runServer(url = DATABASE_URL, port = PORT) {
+//     return new Promise((resolve, reject) => {
+//       mongoose.connect(url, { useMongoClient: true }, err => {
+//         if (err) {
+//           return reject(err);
+//         }
+//         server = app
+//           .listen(port, () => {
+//             console.log(`Your app is listening on port ${port}`);
+//             resolve();
+//           })
+//           .on('error', err => {
+//             mongoose.disconnect();
+//             reject(err);
+//           });
+//       });
+//     });
+//   }
+
+  
 function runServer(port = PORT) {
     const server = app
         .listen(port, () => {
@@ -85,5 +106,19 @@ if (require.main === module) {
     dbConnect();
     runServer();
 }
+// for testing
+function closeServer() {
+    return mongoose.disconnect().then(() => {
+      return new Promise((resolve, reject) => {
+        console.log('Closing server');
+        server.close(err => {
+          if (err) {
+            return reject(err);
+          }
+          resolve();
+        });
+      });
+    });
+  }
 
-module.exports = { app };
+module.exports = { app, runServer, closeServer };
