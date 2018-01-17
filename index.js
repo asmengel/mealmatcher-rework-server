@@ -3,7 +3,7 @@ const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
 const axios= require('axios');
-const { PORT, CLIENT_ORIGIN, KEY } = require('./config');
+const { PORT, CLIENT_ORIGIN, KEY, GEO_KEY } = require('./config');
 const { dbConnect } = require('./db-mongoose');
 
 
@@ -29,10 +29,25 @@ app.use('/api/users/', usersRouter);
 app.use('/api/auth/', authRouter);
 app.use('/api/restaurant/', restaurantRouter);
 
+// non db endpoints
+app.get('/geocode', (req, res) => {
+    let options ={
+        url: `https://maps.googleapis.com/maps/api/geocode/json?address=${req.query.search}&key=${GEO_KEY}
+        `,
+        
+    }
+    request(options, function(error, response, body) {
+        if(!error && response.statusCode == 200) {
+            let info = JSON.parse(body);
+            res.json(info);
+        }
+    })
 
+})
 app.get('/searchresults', (req, res) =>  {
+    console.log(`https://developers.zomato.com/api/v2.1/search?lat=${req.query.lat}&lon=${req.query.lng}&radius=${parseInt(req.query.miles)*1609.34}`)
     let options = {
-        url: `https://developers.zomato.com/api/v2.1/search?q=${req.query.search}`,
+        url: `https://developers.zomato.com/api/v2.1/search?lat=${req.query.lat}&lon=${req.query.lng}&radius=${parseInt(req.query.miles)*1609.34}`,
         headers: {
             'Accept': 'application/json',
             'user-key': KEY
@@ -50,7 +65,9 @@ app.get('/searchresults', (req, res) =>  {
         
         })
     });
-    
+
+
+
 
 app.use(
     morgan(process.env.NODE_ENV === 'production' ? 'common' : 'dev', {
