@@ -23,9 +23,9 @@ describe('Auth endpoints', function () {
     return runServer(TEST_DATABASE_URL, TEST_PORT);
   });
 
-  // after(function () {
-  //   return closeServer();
-  // });
+  after(function () {
+    return closeServer();
+  });
 
   beforeEach(function () {
     return User.hashPassword(password).then(password =>
