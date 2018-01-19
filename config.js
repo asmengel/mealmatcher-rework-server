@@ -10,5 +10,6 @@ module.exports = {
       'mongodb://localhost/mealmatcherdb',
       JWT_EXPIRY: process.env.JWT_EXPIRY,
       KEY: process.env.key,
-      GEO_KEY: process.env.GEO_KEY
+      GEO_KEY: process.env.GEO_KEY,
+      PLACES_KEY: process.env.PLACES_KEY
 };

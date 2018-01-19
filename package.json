@@ -4,10 +4,10 @@
   "description": "Express backend",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js",
+    "dev": "nodemon index.js",
     "test": "mocha --colors --watch  test/setup.test.js */*.test.js",
     "cover": "nodemon --exec nyc --reporter=lcov --reporter=text-summary mocha test/setup.test.js */*.test.js",
-    "heroku": "node index.js",
+    "start": "node index.js",
     "travis": "mocha test/setup.test.js */*.test.js"
   },
   "author": "Anthony",

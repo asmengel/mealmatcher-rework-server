@@ -3,7 +3,7 @@ const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
 const axios= require('axios');
-const { PORT, CLIENT_ORIGIN, KEY, GEO_KEY } = require('./config');
+const { PORT, CLIENT_ORIGIN, KEY, GEO_KEY, PLACES_KEY} = require('./config');
 const { dbConnect } = require('./db-mongoose');
 
 
@@ -30,6 +30,32 @@ app.use('/api/auth/', authRouter);
 app.use('/api/restaurant/', restaurantRouter);
 
 // non db endpoints
+app.get('/googleplaces', (req, res) => {
+    console.log('googleplacesbackend', `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${req.query.location}&radius=15&type=restaurant&key=${PLACES_KEY}`);
+    let options = {
+        url: `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${req.query.location}&radius=75&type=restaurant&key=${PLACES_KEY}`
+    }
+    request(options, function(error, response, body) {
+        if(!error && response.statusCode == 200) {
+            let info = JSON.parse(body);
+             return res.json(info)
+        }
+        
+    })
+})
+
+// Current Holdup in node/express sending google's photo to the front end
+app.get('/placesphoto', (req, res) => {
+    let options ={
+        url: `https://maps.googleapis.com/maps/api/place/photo?maxwidth=800&photoreference=CmRaAAAA-Ynyf8bTkKbGlWQBBDTwwSiJGiRnzdtPCe1gEPCvEq5wGDMplHeLI0q-dFcrHIHMSup5PfIzyVu0JJTMpQScg1kwb4OMIDvZE1m8A4AmtVswaIav_OgmR8eMG8WiIjGDEhACuHlT98A-wUSyk2P0NSmRGhTfQ1W1OopevHMtdKrWOPmIaxhEOg&maxheight=800&key=${PLACES_KEY}
+        `,
+        
+        
+    }
+    request(options.url).pipe(res)
+
+})
+
 app.get('/geocode', (req, res) => {
     let options ={
         url: `https://maps.googleapis.com/maps/api/geocode/json?address=${req.query.search}&key=${GEO_KEY}
@@ -44,8 +70,12 @@ app.get('/geocode', (req, res) => {
     })
 
 })
+
+
+
+
 app.get('/searchresults', (req, res) =>  {
-    console.log(`https://developers.zomato.com/api/v2.1/search?lat=${req.query.lat}&lon=${req.query.lng}&radius=${parseInt(req.query.miles)*1609.34}`)
+    // console.log(`https://developers.zomato.com/api/v2.1/search?lat=${req.query.lat}&lon=${req.query.lng}&radius=${parseInt(req.query.miles)*1609.34}`)
     let options = {
         url: `https://developers.zomato.com/api/v2.1/search?lat=${req.query.lat}&lon=${req.query.lng}&radius=${parseInt(req.query.miles)*1609.34}`,
         headers: {
