@@ -3,7 +3,7 @@ const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
 const axios= require('axios');
-const { PORT, CLIENT_ORIGIN, KEY, GEO_KEY, PLACES_KEY} = require('./config');
+const { PORT, CLIENT_ORIGIN, KEY, GEO_KEY, PLACES_KEY, DATABASE_URL} = require('./config');
 const { dbConnect } = require('./db-mongoose');
 
 
@@ -118,36 +118,37 @@ app.get('/404',(req, res) => {
 // let server;
 
 
-// function runServer(url = DATABASE_URL, port = PORT) {
-//     return new Promise((resolve, reject) => {
-//       mongoose.connect(url, { useMongoClient: true }, err => {
-//         if (err) {
-//           return reject(err);
-//         }
-//         server = app
-//           .listen(port, () => {
-//             console.log(`Your app is listening on port ${port}`);
-//             resolve();
-//           })
-//           .on('error', err => {
-//             mongoose.disconnect();
-//             reject(err);
-//           });
-//       });
-//     });
-//   }
-//
+function runServer(url = DATABASE_URL, port = PORT) {
+    return new Promise((resolve, reject) => {
+      mongoose.connect(url, { useMongoClient: true }, err => {
+        if (err) {
+          return reject(err);
+        }
+        server = app
+          .listen(port, () => {
+            console.log(`Your app is listening on port ${port}`);
+            resolve();
+          })
+          .on('error', err => {
+            mongoose.disconnect();
+            reject(err);
+          });
+      });
+    });
+  }
+
   
-function runServer(port = PORT) {
-    const server = app
-        .listen(port, () => {
-            console.info(`App listening on port ${server.address().port}`);
-        })
-        .on('error', err => {
-            console.error('Express failed to start');
-            console.error(err);
-        });
-}
+// function runServer(port = PORT, dbURL = DATABASE_URL) {
+//     dbConnect();
+//     const server = app
+//         .listen(port, () => {
+//             console.info(`App listening on port ${server.address().port}`);
+//         })
+//         .on('error', err => {
+//             console.error('Express failed to start');
+//             console.error(err);
+//         });
+// }
 
 if (require.main === module) {
     dbConnect();

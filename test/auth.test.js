@@ -12,13 +12,14 @@ const expect = chai.expect;
 chai.use(chaiHttp);
 
 describe('Auth endpoints', function () {
-  const username = 'exampleUser';
+  const username = 'User';
   const password = 'examplePass';
   const firstName = 'Joe';
   const lastName = 'Schmoe';
   const email = 'joe@gmail.com';
 
   before(function () {
+    
     return runServer(TEST_DATABASE_URL, TEST_PORT);
   });
 

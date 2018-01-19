@@ -8,3 +8,10 @@ script:
   - npm test
 services:
   - mongodb
+deploy:
+  provider: heroku
+  api_key:
+    secure: 7cbe065b-ba99-48f9-90df-0616bb0e6740
+  app: themealmatcher
+  on:
+    repo: asmengel/mealmatcher-rework-server
