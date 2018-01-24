@@ -92,8 +92,7 @@ router.post('/', jsonParser, (req, res) => {
   if (missingField) {
     return res.status(422).json({
       code: 422,
-      // changing here from 'ValidationError'
-      reason: 'MissingField',
+      reason: 'ValidationError',
       message: 'Missing field',
       location: missingField
     });
@@ -131,11 +130,6 @@ router.post('/', jsonParser, (req, res) => {
     .catch(err => {
       console.log(err);
       if (err.reason === 'ValidationError') {
-        
-        return res.status(err.code).json(err);
-      }
-      // also new for errors for front end critique
-      if (err.reason === 'MissingField') {
         
         return res.status(err.code).json(err);
       }
