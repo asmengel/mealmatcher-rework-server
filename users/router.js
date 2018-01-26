@@ -42,7 +42,10 @@ function validateUserFields(user) {
 
   const sizedFields = {
     username: { min: 1 },
-    password: { min: 10, max: 72 }
+    password: { min: 10, max: 72 },
+    firstName: {min: 2, max: 25},
+    lastName: {min: 3, max: 45},
+    email: {min:3}
   };
   const tooSmallField = Object.keys(sizedFields).find(field =>
     'min' in sizedFields[field] &&
