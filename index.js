@@ -47,7 +47,7 @@ app.get('/googleplaces', (req, res) => {
 // retrieves image from google for front end render
 app.get('/placesphoto', (req, res) => {
     let options ={
-        url: `https://maps.googleapis.com/maps/api/place/photo?maxwidth=350&photoreference=${req.query.photoreference}&maxheight=350&key=${PLACES_KEY}
+        url: `https://maps.googleapis.com/maps/api/place/photo?maxwidth=800&photoreference=${req.query.photoreference}&maxheight=800&key=${PLACES_KEY}
         `,
         
         
