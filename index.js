@@ -47,7 +47,7 @@ app.get('/googleplaces', (req, res) => {
 // Current Holdup in node/express sending google's photo to the front end
 app.get('/placesphoto', (req, res) => {
     let options ={
-        url: `https://maps.googleapis.com/maps/api/place/photo?maxwidth=800&photoreference=CmRaAAAA-Ynyf8bTkKbGlWQBBDTwwSiJGiRnzdtPCe1gEPCvEq5wGDMplHeLI0q-dFcrHIHMSup5PfIzyVu0JJTMpQScg1kwb4OMIDvZE1m8A4AmtVswaIav_OgmR8eMG8WiIjGDEhACuHlT98A-wUSyk2P0NSmRGhTfQ1W1OopevHMtdKrWOPmIaxhEOg&maxheight=800&key=${PLACES_KEY}
+        url: `https://maps.googleapis.com/maps/api/place/photo?maxwidth=800&photoreference=${req.query.photoreference}&maxheight=800&key=${PLACES_KEY}
         `,
         
         
