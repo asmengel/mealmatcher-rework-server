@@ -9,7 +9,7 @@ This is the server structure for the front end app.
 
 ## Live Link
 
-The current live version can be found <a href="https://upbeat-beaver-2e0698.netlify.com/">here</a>.
+The current live version can be found <a href="https://mealmatcher.netlify.com/">here</a>.
 
 The link to the front-end repo can be found <a href="https://github.com/asmengel/mealmatcher-rework-client">here</a>.
 
