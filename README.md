@@ -7,17 +7,28 @@ This app was created with the idea of connectiong people and food. Solo vacation
 
 ## Tech Used
 Angular
+
 JavaScript
+
 Node.JS
+
 Express
+
 JWT
+
 mLab
+
 MongoDB
+
 Mocha/Chai
+
 Jasmine/Karma
+
 HTML
 CSS3
+
 FlexBox
+
 Travis
 
 
