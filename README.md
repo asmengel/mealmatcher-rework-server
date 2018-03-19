@@ -5,6 +5,22 @@ Never dine alone.
 ## Description
 This app was created with the idea of connectiong people and food. Solo vacationers as well as business travelers often times do not have the opportunity to eat as certian restaurants due to reservations not allowing for 1 person during main meal times. MealMatcher aims to fix that by connecting people who desire to eat at certian restaurants.
 
+## Tech Used
+Angular
+JavaScript
+Node.JS
+Express
+JWT
+mLab
+MongoDB
+Mocha/Chai
+Jasmine/Karma
+HTML
+CSS3
+FlexBox
+Travis
+
+
 ## Live Link
 
 The current live version can be found <a href="http://anthonymengel.com/mealMatcher/">here</a>.
